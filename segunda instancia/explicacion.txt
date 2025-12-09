@@ -7,7 +7,7 @@ numpy: Se utiliza para manejar el tablero (self.board) y las formas de las pieza
   pickle: Permite guardar y cargar el progreso de entrenamiento (la tabla Q) para persistencia.
 
 2. Clase Tetris (Entorno de Juego):
-  __init__: Define las dimensiones del tablero (6x10), lo inicializa con ceros, y almacena las formas de las piezas (matrices de 0s y 1s).
+  __init__: Define las dimensiones del tablero, lo inicializa con ceros, y almacena las formas de las piezas (matrices de 0s y 1s).
   get_state: Genera la representación del estado actual para el agente. Este estado se define por una tupla que incluye: las alturas de las 10 columnas, la altura máxima, la diferencia entre la altura máxima y mínima, y el número de huecos bajo bloques.
   can_place: Determina si una pieza específica puede caer en una columna dada y calcula la fila de aterrizaje final antes de chocar con algo.
   _check_collision: Verifica si la pieza colisionaría con bloques ya existentes en el tablero.

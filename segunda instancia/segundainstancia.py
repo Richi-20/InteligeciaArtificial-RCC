@@ -260,7 +260,7 @@ print("\nEntrenamiento completado")
 print(f"Score promedio últimos 100 episodios: {np.mean(scores[-100:]):.2f}")
 
  
-print("\n¿Quieres ver una partida del agente entrenado? (s/n)")
+print("\n¿Ver una partida del agente entrenado? (s/n)")
 if input().lower() == 's':
     play_game(agent, render=True)
 else:
