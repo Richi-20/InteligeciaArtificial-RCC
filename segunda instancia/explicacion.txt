@@ -1,0 +1,25 @@
+Examen de segunda instancia
+Universitario:Richard Chavez Cano             Carrera:Igenieria de sistemas
+1. Importaciones:
+numpy: Se utiliza para manejar el tablero (self.board) y las formas de las piezas de Tetris como matrices eficientes.
+  random: Se usa para seleccionar piezas al azar y para la exploración (aleatoriedad) del agente Q-Learning.
+  defaultdict: Crea la tabla Q del agente, inicializando valores Q a cero automáticamente para estados/acciones no visitados.
+  pickle: Permite guardar y cargar el progreso de entrenamiento (la tabla Q) para persistencia.
+
+2. Clase Tetris (Entorno de Juego):
+  __init__: Define las dimensiones del tablero (6x10), lo inicializa con ceros, y almacena las formas de las piezas (matrices de 0s y 1s).
+  get_state: Genera la representación del estado actual para el agente. Este estado se define por una tupla que incluye: las alturas de las 10 columnas, la altura máxima, la diferencia entre la altura máxima y mínima, y el número de huecos bajo bloques.
+  can_place: Determina si una pieza específica puede caer en una columna dada y calcula la fila de aterrizaje final antes de chocar con algo.
+  _check_collision: Verifica si la pieza colisionaría con bloques ya existentes en el tablero.
+  place_piece: Coloca la pieza en el tablero en la posición determinada. Llama a _clear_lines para procesar la puntuación. Si no se puede colocar, establece game_over = True. Devuelve una recompensa (reward) basada en las líneas eliminadas.
+  _clear_lines: Elimina las filas completas, mueve las filas superiores hacia abajo y cuenta las líneas eliminadas para calcular la recompensa.
+  reset: Reinicia el juego.
+
+3. Clase QLearningAgent (Agente de Aprendizaje por Refuerzo):
+  __init__: Inicializa laq_table (la tabla de valores Q), y los parámetros clave:epsilon (probabilidad de exploración),alpha (tasa de aprendizaje), y gamma (factor de descuento de recompensas futuras).
+  get_action: Implementa la estrategia de Exploración vs. Explotación. Con probabilidad epsilon elige una acción al azar (exploración); si no, elige la acción con el Q-valor más alto (explotación).
+  update: Actualiza la q_table después de cada movimiento utilizando la ecuación de Bellman simplificada para Q-Learning, ajustando el valor Q anterior basado en la recompensa obtenida y la recompensa futura máxima estimada.
+
+4. Funciones de Entrenamiento y Juego:
+  train_agent: Función principal que ejecuta los episodios de entrenamiento. En cada paso: obtiene una pieza, calcula las acciones válidas (columnas), el agente elige una acción (get_action), se ejecuta la acción (place_piece), se obtiene el nuevo estado y el agente aprende (update).
+  play_game: Ejecuta una partida usando el agente entrenado con exploración desactivada (epsilon=0) para mostrar su rendimiento, opcionalmente renderizando el tablero.
